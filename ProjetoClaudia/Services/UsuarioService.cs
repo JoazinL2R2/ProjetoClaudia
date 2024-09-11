@@ -15,7 +15,7 @@ namespace ProjetoClaudia.Services
         {
             if(user != null)
             {
-                await _db.
+
             }
             throw new Exception("Usuario Nulo");
         }
