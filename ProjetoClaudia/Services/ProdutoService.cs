@@ -1,0 +1,58 @@
+﻿using Microsoft.EntityFrameworkCore;
+using ProjetoClaudia.Data;
+using ProjetoClaudia.Models;
+using ProjetoClaudia.Services.Interface;
+
+namespace ProjetoClaudia.Services
+{
+    public class ProdutoService : IProdutoService
+    {
+        private readonly BancoContext _db;
+        public ProdutoService(BancoContext bancoContext)
+        {
+            _db = bancoContext;
+        }
+        public async Task<Produto> CreateProduto(Produto produto)
+        {
+            if(produto != null)
+            {
+                _db.Produto.Add(produto);
+                await _db.SaveChangesAsync();
+                return produto;
+            }
+            throw new Exception("Preencha os dados antes de enviar e tente novamente");
+        }
+
+        public async Task<Produto> DeleteProduto(int id)
+        {
+            if(id != 0 && id != null)
+            {
+                var query = await _db.Produto.FirstOrDefaultAsync(x => x.Id == id);
+                if(query != null)
+                {
+                    _db.Produto.Remove(query);
+                    await _db.SaveChangesAsync();
+                    return query;
+                }
+                throw new Exception($"Nenhum Produto encontrado com o Id:{id}");
+            }
+            throw new Exception("Id nulo");
+        }
+
+        public async Task<List<Produto>> GetAllProdutos()
+        {
+            return await _db.Produto.ToListAsync();
+        }
+
+        public Task<List<Produto>> GetFilteredProdutos(Produto produto)
+        {
+            IQueryable < Produto > query = _db.Produto;
+            return  query.ToListAsync();
+        }
+
+        public Task<Produto> UpdateProduto(Produto produto)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
