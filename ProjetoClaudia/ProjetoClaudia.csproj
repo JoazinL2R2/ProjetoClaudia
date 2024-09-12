@@ -18,4 +18,10 @@
 		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.10" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Views\Compra\" />
+	  <Folder Include="Views\Usuario\" />
+	  <Folder Include="Views\Produto\" />
+	</ItemGroup>
+
 </Project>
