@@ -50,9 +50,15 @@ namespace ProjetoClaudia.Services
             return  query.ToListAsync();
         }
 
-        public Task<Produto> UpdateProduto(Produto produto)
+        public async Task<Produto> UpdateProduto(Produto produto)
         {
-            throw new NotImplementedException();
+            if(produto.Id != 0 && produto.Id != 0)
+            {
+                _db.Produto.Update(produto);
+                await _db.SaveChangesAsync();
+                return produto;
+            }
+            throw new Exception("Id Nulo");
         }
     }
 }

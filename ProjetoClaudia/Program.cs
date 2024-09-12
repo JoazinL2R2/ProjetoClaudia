@@ -1,8 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using ProjetoClaudia.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Configure the DbContext service
+builder.Services.AddDbContext<BancoContext>(
+    opcoes => opcoes.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Build the app
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
