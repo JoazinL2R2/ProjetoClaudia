@@ -21,6 +21,7 @@
         public string Senha { get; set; }
         public string Cpf { get; set; }
         public bool Genero { get; set; }
+        public TipoUsuario TipoUsuario { get; set; }
 
     }
 }

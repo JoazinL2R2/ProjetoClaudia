@@ -9,5 +9,7 @@ namespace ProjetoClaudia.Services.Interface
         Task<bool> DeleteUser(int id);
         Task<Usuario> UpdateUser(Usuario user);
         Task<Usuario> CreateUser(Usuario user);
+        Task<bool> Login(Usuario usuario);
+        void CreateSession(Usuario user);
     }
 }

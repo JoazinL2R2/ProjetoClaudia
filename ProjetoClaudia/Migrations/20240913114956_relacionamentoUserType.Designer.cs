@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoClaudia.Data;
 
@@ -10,9 +11,11 @@ using ProjetoClaudia.Data;
 namespace ProjetoClaudia.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    partial class BancoContextModelSnapshot : ModelSnapshot
+    [Migration("20240913114956_relacionamentoUserType")]
+    partial class relacionamentoUserType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -25,6 +28,12 @@ namespace ProjetoClaudia.Migrations
 
                     b.Property<DateTime>("DataCompra")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Id_Produto")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Id_Usuario")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ProdutoId")
                         .HasColumnType("INTEGER");
@@ -100,6 +109,9 @@ namespace ProjetoClaudia.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Genero")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Id_TipoUsuario")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")

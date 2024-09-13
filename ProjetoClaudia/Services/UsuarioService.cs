@@ -1,17 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
 using ProjetoClaudia.Data;
 using ProjetoClaudia.Models;
 using ProjetoClaudia.Services.Interface;
+using System.Security.Claims;
 
 namespace ProjetoClaudia.Services
 {
     public class UsuarioService : IUsuarioService
     {
         private readonly BancoContext _db;
-        public UsuarioService(BancoContext banco)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UsuarioService(BancoContext banco , IHttpContextAccessor httpContextAccessor)
         {
             _db = banco;
+            _httpContextAccessor = httpContextAccessor;
+
         }
+
+        public void CreateSession(Usuario user)
+        {
+            var httpContext = _httpContextAccessor.HttpContext;
+            if(httpContext != null)
+            {
+                httpContext.Session.SetString("nome", user.Nome);
+                httpContext.Session.SetString("email", user.Email);
+                httpContext.Session.SetString("role", user.TipoUsuario.Des_TipoUsuario);
+            }
+
+        }
+
         public async Task<Usuario> CreateUser(Usuario user)
         {
             if(user != null)
@@ -85,6 +104,40 @@ namespace ProjetoClaudia.Services
                 return (List<Usuario>)query;
             }
             return (List<Usuario>)query.Take(0);
+        }
+
+        public async Task<bool> Login(Usuario usuario)
+        {
+            if (_db.Usuario.Any(x => x.Email == usuario.Email && x.Senha == usuario.Senha))
+            {
+                var httpContext = _httpContextAccessor.HttpContext;
+                var query = _db.Usuario.Where(b => b.Email == usuario.Email).FirstOrDefault();
+                if(query == null)
+                {
+                    throw new Exception("Usuário não encontrado");
+                }
+                List<Claim> claims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.NameIdentifier, query.Email),
+                    new Claim(ClaimTypes.Role, query.TipoUsuario.Des_TipoUsuario)
+                };
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
+                    CookieAuthenticationDefaults.AuthenticationScheme
+                    );
+
+                AuthenticationProperties properties = new AuthenticationProperties()
+                {
+                    AllowRefresh = true,
+
+                };
+                await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity), properties);
+
+                CreateSession(query);
+                return true;
+            }
+            throw new Exception("Email ou senha incorretos");
+            
         }
 
         public async Task<Usuario> UpdateUser(Usuario user)
