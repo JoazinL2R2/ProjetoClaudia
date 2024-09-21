@@ -39,9 +39,17 @@ namespace ProjetoClaudia.Services
             throw new Exception("Id nulo");
         }
 
-        public async Task<List<Produto>> GetAllProdutos()
+        public List<Produto> GetAllProdutos()
         {
-            return await _db.Produto.ToListAsync();
+            var produtos = _db.Produto.Where(x => x.Flg_Inativo == false).Select(x => new Produto
+            {
+                Id = x.Id,
+                Flg_Inativo = x.Flg_Inativo,
+                Nome = x.Nome,
+                Quantidade = x.Quantidade,
+                Valor = x.Valor
+            }).ToList();
+            return produtos;
         }
 
         public Task<List<Produto>> GetFilteredProdutos(Produto produto)

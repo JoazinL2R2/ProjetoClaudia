@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProjetoClaudia.Data;
+using ProjetoClaudia.Services;
+using ProjetoClaudia.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,13 @@ builder.Services.AddControllersWithViews();
 // Configure the DbContext service
 builder.Services.AddDbContext<BancoContext>(
     opcoes => opcoes.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<ICompraService, CompraService>();
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromHours(1);
@@ -46,6 +54,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Produto}/{action=Index}");
 
 app.Run();

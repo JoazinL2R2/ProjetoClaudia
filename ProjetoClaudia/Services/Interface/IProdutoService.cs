@@ -7,7 +7,7 @@ namespace ProjetoClaudia.Services.Interface
         Task<Produto> CreateProduto(Produto produto);
         Task<Produto> UpdateProduto(Produto produto);
         Task<Produto> DeleteProduto(int id);
-        Task<List<Produto>> GetAllProdutos();
+        List<Produto> GetAllProdutos();
         Task<List<Produto>> GetFilteredProdutos(Produto produto);
     }
 }
