@@ -1,0 +1,37 @@
+﻿@model Produto
+
+<div class="modal fade" id="EditarProduto-@Model.Id" data-bs-backdrop="static" tabindex="-1" aria-labelledby="EditarProdutoLabel-@Model.Id" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <!-- Modal grande e centralizado -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="EditarProdutoLabel-@Model.Id">Editar Produto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulário responsivo -->
+                <form>
+                    <div class="mb-3">
+                        <!-- Espaço embaixo do campo -->
+                        <label for="NomeProduto-@Model.Id" class="form-label">Nome</label>
+                        <input type="text" value="@Model.Nome" class="form-control" id="NomeProduto-@Model.Id" placeholder="Digite o nome do produto" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="QuantidadeProduto-@Model.Id" class="form-label">Quantidade</label>
+                            <input type="number" value="@Model.Quantidade" class="form-control" id="QuantidadeProduto-@Model.Id" placeholder="Digite a quantidade" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="ValorProduto-@Model.Id" class="form-label">Valor</label>
+                            <input type="number" step="0.01" value="@Model.Valor" class="form-control" id="ValorProduto-@Model.Id" placeholder="Digite o valor" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+</div>

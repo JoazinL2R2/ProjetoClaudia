@@ -1,0 +1,52 @@
+﻿@model List<Usuario>
+<table id="tabelaUsuarios" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>CPF</th>
+            <th>Ações</th>
+            <th>
+                <a class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="@("#AdicionarUsuario")">
+                    Adicionar Usuário
+                </a>
+                @await Html.PartialAsync("AdicionarUsuarioPartialView")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nome</td>
+                <td>@item.Email</td>
+                <td>@item.Cpf</td>
+                <td>
+                    <a href="#" class="btn btn-primary btn-sm" title="Editar" data-bs-toggle="modal" data-bs-target="@("#EditarProduto-" + item.Id)">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    @await Html.PartialAsync("EditarProdutoPartialView", item)
+                    <a href="#" class="btn btn-danger btn-sm" title="Excluir" data-bs-toggle="modal" data-bs-target="@("#ExcluirProduto-" + item.Id)">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    @await Html.PartialAsync("ExcluirProdutoPartialView", item)
+                </td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#tabelaUsuarios').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true
+            });
+        });
+    </script>
+}

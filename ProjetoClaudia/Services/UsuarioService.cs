@@ -54,16 +54,16 @@ namespace ProjetoClaudia.Services
             throw new Exception($"Nenhum usuário encontrado com o Id Informado, Id:{id}");
         }
 
-        public async Task<IEnumerable<Usuario>> GetAllUsers()
+        public List<Usuario> GetAllUsers()
         {
-            var query = await _db.Usuario.Where(x => x.Id != 0).Select(x => new Usuario
+            var query = _db.Usuario.Where(x => x.Id != 0).Select(x => new Usuario
             {
                 Id = x.Id,
                 Cpf = x.Cpf,
                 Email = x.Email,
                 Genero = x.Genero,
                 Nome = x.Nome,
-            }).ToListAsync();
+            }).ToList();
             return query;
         }
 

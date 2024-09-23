@@ -1,0 +1,44 @@
+﻿<div class="modal fade" id="AdicionarUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AdicionarUsuario" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="AdicionarProduto">Adicionar Usuário</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="NomeProduto" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="NomeProduto" placeholder="Digite o nome " />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="Email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="Email" placeholder="Digite email" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="Senha" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="Senha" placeholder="Digite a senha" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="CPF" class="form-label">CPF</label>
+                            <input type="text" class="form-control" id="CPF" placeholder="Digite o CPF" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="TipoUsuario" class="form-label">Tipo Usuário</label>
+                            <select class="form-select">
+                                <option selected>Selecione</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Usuario</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Adicionar Usuário</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProjetoClaudia.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.7/css/dataTables.dataTables.css" /> 
+
 </head>
 <body>
     <header>
@@ -22,6 +24,9 @@
 
                     <!-- Itens de navegação (caso você tenha outros) -->
                     <ul class="navbar-nav flex-grow-1">
+                        <a asp-controller="Admin" asp-action="GetAllUsuarios">Gerenciar Usuarios</a>
+                        |
+                        <a asp-controller="Admin" asp-action="GetAllProdutos">Gerenciar Produtos</a>
                     </ul>
 
                     <!-- Ícones de login e carrinho de compras -->
@@ -31,6 +36,7 @@
                             <i class="bi bi-person"></i> Login
                         </a>
                         @await Html.PartialAsync("LoginPartialView")
+
 
                         <!-- Botão de Carrinho de Compras -->
                         <a href="#" class="btn btn-outline-secondary">
@@ -57,6 +63,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
