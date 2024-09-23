@@ -14,33 +14,15 @@ namespace ProjetoClaudia.Controllers
         {
             _userService = usuarioService;
         }
-        [HttpGet]
-        public IActionResult Login()
-        {
-
-            if (User.Identity.IsAuthenticated)
-            {
-                //Criação de sessão apenas para não aparecer "Sessão expirada" na página de login
-                HttpContext.Session.SetString("nome", "teste");
-                return RedirectToAction("LogOut", "Home");
-            }
-
-            if (HttpContext.Session.GetString("nome") != null)
-            {
-                HttpContext.Session.Clear();
-            }
-
-            return View();
-        }
         [HttpPost]
         public async Task<IActionResult> Login(Usuario usuario)
         {
             if(usuario != null)
             {
                 await _userService.Login(usuario);
-                return View();
+                return RedirectToAction("Index","Produto");
             }
-            return View();
+            return RedirectToAction("Index", "Produto");
         }
         public IActionResult Index()
         {

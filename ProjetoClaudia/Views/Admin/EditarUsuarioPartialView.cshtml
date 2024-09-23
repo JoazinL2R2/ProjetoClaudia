@@ -1,0 +1,44 @@
+﻿@model Usuario
+
+<div class="modal fade" id="EditarUsuario-@Model.Id" data-bs-backdrop="static" tabindex="-1" aria-labelledby="EditarUsuarioLabel-@Model.Id" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <!-- Modal grande e centralizado -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="EditarProdutoLabel-@Model.Id">Editar Usuario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulário responsivo -->
+                <form>
+                    <div class="mb-3">
+                        <!-- Espaço embaixo do campo -->
+                        <label for="Nome-@Model.Id" class="form-label">Nome</label>
+                        <input type="text" value="@Model.Nome" class="form-control" id="Nome" placeholder="Digite o nome" />
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <!-- Espaço embaixo do campo -->
+                            <label for="Email" class="form-label">Email</label>
+                            <input type="text" value="@Model.Email" class="form-control" id="Email" placeholder="Digite o email" />
+                        </div>
+                        <div class="mb-3">
+                            <!-- Espaço embaixo do campo -->
+                            <label for="CPF" class="form-label">CPF</label>
+                            <input type="text" value="@Model.Cpf" class="form-control" id="CPF" placeholder="Digite o CPF" />
+                        </div>
+                        <div class="mb-3">
+                            <!-- Espaço embaixo do campo -->
+                            <label for="Senha" class="form-label">Senha</label>
+                            <input type="text" value="@Model.Senha" class="form-control" id="Senha" placeholder="Digite a senha" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,19 +18,18 @@ namespace ProjetoClaudia.Services
             _httpContextAccessor = httpContextAccessor;
 
         }
-
         public void CreateSession(Usuario user)
         {
             var httpContext = _httpContextAccessor.HttpContext;
             if(httpContext != null)
             {
+                httpContext.Session.SetInt32("Id", user.Id);
                 httpContext.Session.SetString("nome", user.Nome);
                 httpContext.Session.SetString("email", user.Email);
                 httpContext.Session.SetString("role", user.TipoUsuario.Des_TipoUsuario);
             }
 
         }
-
         public async Task<Usuario> CreateUser(Usuario user)
         {
             if(user != null)
@@ -41,7 +40,6 @@ namespace ProjetoClaudia.Services
             }
             throw new Exception("Usuario Nulo");
         }
-
         public async Task<bool> DeleteUser(int id)
         {
             var query = await _db.Usuario.FirstOrDefaultAsync(x => x.Id == id);
@@ -53,7 +51,6 @@ namespace ProjetoClaudia.Services
             }
             throw new Exception($"Nenhum usuário encontrado com o Id Informado, Id:{id}");
         }
-
         public List<Usuario> GetAllUsers()
         {
             var query = _db.Usuario.Where(x => x.Id != 0).Select(x => new Usuario
@@ -66,7 +63,6 @@ namespace ProjetoClaudia.Services
             }).ToList();
             return query;
         }
-
         public async Task<List<Usuario>> GetFilteredUsers(Usuario usuario)
         {
             IQueryable<Usuario> query = _db.Usuario;
@@ -105,7 +101,6 @@ namespace ProjetoClaudia.Services
             }
             return (List<Usuario>)query.Take(0);
         }
-
         public async Task<bool> Login(Usuario usuario)
         {
             if (_db.Usuario.Any(x => x.Email == usuario.Email && x.Senha == usuario.Senha))
@@ -115,6 +110,22 @@ namespace ProjetoClaudia.Services
                 if(query == null)
                 {
                     throw new Exception("Usuário não encontrado");
+                }
+                if(query.TipoUsuarioId == 1)
+                {
+                    query.TipoUsuario = new TipoUsuario
+                    {
+                        Id = 1,
+                        Des_TipoUsuario = "Admin"
+                    };
+                }
+                if (query.TipoUsuarioId == 2)
+                {
+                    query.TipoUsuario = new TipoUsuario
+                    {
+                        Id = 2,
+                        Des_TipoUsuario = "Usuario"
+                    };
                 }
                 List<Claim> claims = new List<Claim>()
                 {
@@ -139,7 +150,6 @@ namespace ProjetoClaudia.Services
             throw new Exception("Email ou senha incorretos");
             
         }
-
         public async Task<Usuario> UpdateUser(Usuario user)
         {
             if (user.Id == null && user.Id != 0)

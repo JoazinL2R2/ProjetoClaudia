@@ -13,7 +13,7 @@ namespace ProjetoClaudia.Controllers
         public  IActionResult Index()
         {
             var produtos = _produtoService.GetAllProdutos();
-            if (produtos == null || !produtos.Any())
+            if (produtos == null)
             {
                 ViewBag.Message = "Nenhum produto encontrado";
             }

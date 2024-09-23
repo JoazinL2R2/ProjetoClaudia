@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies; // Adicione essa linha
 using Microsoft.EntityFrameworkCore;
 using ProjetoClaudia.Data;
 using ProjetoClaudia.Services;
@@ -18,21 +19,33 @@ builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<ICompraService, CompraService>();
 
+// Configure session with a 1-hour timeout
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromHours(1);
 });
+
+// Configure authentication with cookie
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Produto/Index"; // Caminho para redirecionar na falha de login
+        options.LogoutPath = "/Produto/Index"; // Caminho para redirecionar no logout
+    });
+
+// Configure authorization policies
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("UserPolicy", policy =>
         policy.RequireRole("User"));
 
     options.AddPolicy("AdminPolicy", policy =>
-        policy.RequireRole("Admin"));    
-    
+        policy.RequireRole("Admin"));
+
     options.AddPolicy("FuncionarioPolicy", policy =>
         policy.RequireRole("Funcionario"));
 });
+
 // Build the app
 var app = builder.Build();
 
@@ -40,7 +53,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -49,11 +61,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
+// Use session before authentication and authorization
+app.UseSession();
+
+app.UseAuthentication(); // Certifique-se de que isso está aqui
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Produto}/{action=Index}");
+    pattern: "{controller=Produto}/{action=Index}/{id?}");
 
 app.Run();

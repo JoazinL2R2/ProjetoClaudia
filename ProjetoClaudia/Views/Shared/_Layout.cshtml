@@ -13,41 +13,79 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
+                <!-- Logo à esquerda -->
                 <a class="navbar-brand" asp-area="" asp-controller="Produto" asp-action="Index">Loja do JoazinL2R2</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+
+                <!-- Botão de colapso para mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 
-                    <!-- Itens de navegação (caso você tenha outros) -->
-                    <ul class="navbar-nav flex-grow-1">
-                        <a asp-controller="Admin" asp-action="GetAllUsuarios">Gerenciar Usuarios</a>
-                        |
-                        <a asp-controller="Admin" asp-action="GetAllProdutos">Gerenciar Produtos</a>
-                    </ul>
+                <!-- Itens do menu centralizados -->
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    @if (Context.Session.GetString("role") != null)
+                    {
+                        <input type="hidden" value="@Context.Session.GetInt32("Id")" id="idHiddenInput"/>
+                        <ul class="navbar-nav">
+                            @if (Context.Session.GetString("role") == "Admin")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Admin" asp-action="GetAllUsuarios">Gerenciar Usuários</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Admin" asp-action="GetAllProdutos">Gerenciar Produtos</a>
+                                </li>
+                            }
+                            else if (Context.Session.GetString("role") == "User")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-outline-primary" asp-controller="Usuario" asp-action="Perfil">Meu Perfil</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
 
-                    <!-- Ícones de login e carrinho de compras -->
-                    <div class="d-flex ms-auto">
+                <!-- Ícones de login e carrinho à direita -->
+                <div class="d-flex ms-auto">
+                    @if (Context.Session.GetString("role") == null)
+                    {
                         <!-- Botão de Login -->
-                        <a class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="@("#LoginModal")">
+                        <a class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#LoginModal">
                             <i class="bi bi-person"></i> Login
                         </a>
                         @await Html.PartialAsync("LoginPartialView")
+                    }
 
-
+                    @if (Context.Session.GetString("role") != null)
+                    {
                         <!-- Botão de Carrinho de Compras -->
-                        <a href="#" class="btn btn-outline-secondary">
+                        <a href="#" class="btn btn-outline-secondary" id="cartButton">
                             <i class="bi bi-cart"></i> Carrinho
                         </a>
-                    </div>
+                    }
                 </div>
             </div>
         </nav>
     </header>
 
+
+    <div class="modal fade" id="Carrinho" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <h2>Seu Carrinho</h2>
+                <ul id="cart-items">
+                    
+                </ul>
+                <div class="total">
+                    <strong>Total: R$ 100,00</strong>
+                </div>
+                <button class="checkout-btn">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -67,3 +105,31 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var id = $('#idHiddenInput').val();
+            console.log(id);
+            $('#cartButton').click(function () {
+                $.ajax({
+                    url: '/carrinho/adicionar',
+                    type: 'POST',
+                    data: {
+                        Id: id,
+                    },
+                    success: function (response) {
+                        $('#Carrinho').modal('show');
+                        $('#cart-items').html(response.itensHtml);
+                        $('.total strong').text('Total: R$ ' + response.total);
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Ocorreu um erro ao adicionar o produto ao carrinho.');
+                        console.error(error);
+                    }
+                });
+            });
+        });
+
+
+    </script>
+}

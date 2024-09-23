@@ -2,7 +2,7 @@
 {
     public class Compra
     {
-        public Compra(int id, DateTime dataCompra, string valor, int idUsuario,int idProduto)
+        public Compra(int id, DateTime dataCompra, string valor)
         {
             Id = id;
             DataCompra = dataCompra;
