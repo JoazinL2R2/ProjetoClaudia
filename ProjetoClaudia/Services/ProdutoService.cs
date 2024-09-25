@@ -16,11 +16,12 @@ namespace ProjetoClaudia.Services
         {
             if(produto != null)
             {
+                produto.Flg_Inativo = false;
                 _db.Produto.Add(produto);
                 await _db.SaveChangesAsync();
                 return produto;
             }
-            throw new Exception("Preencha os dados antes de enviar e tente novamente");
+            throw new Exception("Preencha todos os dados antes de enviar e tente novamente");
         }
 
         public async Task<Produto> DeleteProduto(int id)

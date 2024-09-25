@@ -5,28 +5,28 @@
                 <h1 class="modal-title fs-5" id="AdicionarProduto">Adicionar Produto</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form asp-action="AddProduto" asp-controller="Produto">
+                <div class="modal-body">
                     <div class="mb-3">
                         <label for="NomeProduto" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="NomeProduto" placeholder="Digite o nome do produto" />
+                        <input type="text" class="form-control" id="NomeProduto" name="Nome" placeholder="Digite o nome do produto" />
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="QuantidadeProduto" class="form-label">Quantidade</label>
-                            <input type="number" class="form-control" id="QuantidadeProduto" placeholder="Digite a quantidade" />
+                            <input type="number" class="form-control" id="QuantidadeProduto" name="Quantidade" placeholder="Digite a quantidade" />
                         </div>
                         <div class="col-md-6">
                             <label for="ValorProduto" class="form-label">Valor</label>
-                            <input type="number" step="0.01" class="form-control" id="ValorProduto" placeholder="Digite o valor" />
+                            <input type="number" step="0.01" class="form-control" id="ValorProduto" name="Valor" placeholder="Digite o valor" />
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Adicionar Produto</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Adicionar Produto</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
