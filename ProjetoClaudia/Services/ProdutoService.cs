@@ -48,7 +48,8 @@ namespace ProjetoClaudia.Services
                 Flg_Inativo = x.Flg_Inativo,
                 Nome = x.Nome,
                 Quantidade = x.Quantidade,
-                Valor = x.Valor
+                Valor = x.Valor,
+                URL_Imagem = x.URL_Imagem,
             }).ToList();
             return produtos;
         }

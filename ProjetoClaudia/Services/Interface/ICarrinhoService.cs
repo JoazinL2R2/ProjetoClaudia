@@ -6,5 +6,6 @@ namespace ProjetoClaudia.Services.Interface
     {
         Task<IEnumerable<ProjetoClaudia.Models.Carrinho>> GetCarrinhoAsync();
         Task<bool> RemoveCarrinho(int id);
+        Task<bool> AdicionarAoCarrinho(int idProduto, int idUser);
     }
 }

@@ -22,6 +22,7 @@
 	  <Folder Include="Views\Compra\" />
 	  <Folder Include="Views\Usuario\" />
 	  <Folder Include="wwwroot\ImagemProdutos\" />
+	  <Folder Include="wwwroot\uploads\" />
 	</ItemGroup>
 
 </Project>

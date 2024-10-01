@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="AdicionarProduto">Adicionar Produto</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form asp-action="AddProduto" asp-controller="Produto">
+            <form asp-action="AddProduto" asp-controller="Produto" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="NomeProduto" class="form-label">Nome</label>
@@ -19,6 +19,10 @@
                         <div class="col-md-6">
                             <label for="ValorProduto" class="form-label">Valor</label>
                             <input type="number" step="0.01" class="form-control" id="ValorProduto" name="Valor" placeholder="Digite o valor" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="file">Selecione uma imagem:</label>
+                            <input type="file" name="Imagem" />
                         </div>
                     </div>
                 </div>

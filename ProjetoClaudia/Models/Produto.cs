@@ -19,5 +19,6 @@
         public int Quantidade { get; set; }
         public bool Flg_Inativo { get; set; }
         public string Valor { get; set; }
+        public string URL_Imagem { get; set; }
     }
 }
