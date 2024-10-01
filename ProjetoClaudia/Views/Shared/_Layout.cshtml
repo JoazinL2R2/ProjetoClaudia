@@ -62,7 +62,7 @@
                     @if (Context.Session.GetString("role") != null)
                     {
                         <!-- Botão de Carrinho de Compras -->
-                        <a href="#" class="btn btn-outline-secondary" id="cartButton">
+                        <a asp-action="Index" asp-controller="Carrinho" class="btn btn-outline-secondary" id="cartButton">
                             <i class="bi bi-cart"></i> Carrinho
                         </a>
                     }

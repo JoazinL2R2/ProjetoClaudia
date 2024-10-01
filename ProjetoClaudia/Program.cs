@@ -18,6 +18,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<ICompraService, CompraService>();
+builder.Services.AddScoped<ICarrinhoService, CarrinhoService>();
 
 // Configure session with a 1-hour timeout
 builder.Services.AddSession(options =>
