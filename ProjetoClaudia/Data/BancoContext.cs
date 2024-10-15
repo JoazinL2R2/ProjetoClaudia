@@ -9,6 +9,7 @@ namespace ProjetoClaudia.Data
         public DbSet<Produto> Produto { get; set; }
         public DbSet<Compra> Compra { get; set; }
         public DbSet<Carrinho> Carrinho { get; set; }
+        public DbSet<TipoUsuario> TipoUsuario { get; set; }
         public BancoContext(DbContextOptions<BancoContext> opcoes) : base(opcoes)
         {
 

@@ -34,16 +34,27 @@ namespace ProjetoClaudia.Services
         {
             if (user != null)
             {
-                if (user.TipoUsuarioId == null)
+                // Verifica se o TipoUsuario é nulo
+                if (user.TipoUsuario == null)
                 {
-                    user.TipoUsuarioId = 2;
+                    // Busca o TipoUsuario no banco de dados
+                    user.TipoUsuario = await _db.TipoUsuario.FindAsync(2);
+                    if (user.TipoUsuario == null)
+                    {
+                        // Caso não encontre, lance uma exceção ou crie um novo TipoUsuario
+                        throw new Exception("TipoUsuario com Id 2 não encontrado.");
+                    }
                 }
+
+                // Adiciona o usuário e salva as mudanças
                 _db.Usuario.Add(user);
                 await _db.SaveChangesAsync();
                 return user;
             }
-            throw new Exception("Usuario Nulo");
+
+            throw new Exception("Usuário nulo");
         }
+
 
         public async Task<bool> DeleteUser(int id)
         {
