@@ -19,14 +19,15 @@ namespace ProjetoClaudia.Controllers
             var carrinho = await _carrinho.GetCarrinhoAsync();
             return View(carrinho);
         }
-        public async Task<IActionResult> RemoveProduto(int id)
+        [HttpPost]
+        public async Task<IActionResult> RemoveProduto([FromBody]int id)
         {
             if (id != null && id != 0)
             {
                 if (await _carrinho.RemoveCarrinho(id))
                 {
-                    TempData["Sucesso"] = $"Sucesso: Item removido do carrinho";
-                     return RedirectToAction("Index");
+                    TempData["SucessoMensage"] = $"Sucesso: Item removido do carrinho";
+                    return RedirectToAction("Index");
                 }
                 TempData["Exception"] = $"Erro: Nenhum carrinho encontrado com o Id informado";
                 return RedirectToAction("Index");
@@ -44,7 +45,7 @@ namespace ProjetoClaudia.Controllers
                 _carrinho.AdicionarAoCarrinho(produtoId, usuarioId.Value);
                 return Json(new { sucesso = true, usuarioId = usuarioId.Value, produtoId = produtoId });
             }
-            return RedirectToAction("Index","Produto");
+            throw new Exception("Erro, usuário não está logado");
         }
     }
 }

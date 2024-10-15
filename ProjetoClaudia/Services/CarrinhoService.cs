@@ -42,7 +42,13 @@ namespace ProjetoClaudia.Services
 
         public async Task<IEnumerable<ProjetoClaudia.Models.Carrinho>> GetCarrinhoAsync()
         {
-            return await _bancoContext.Carrinho.Where(x => x.Flg_Inativo == false).ToListAsync();
+            return await _bancoContext.Carrinho.Where(x => x.Flg_Inativo == false).Select(x => new ProjetoClaudia.Models.Carrinho
+            {
+                Usuario = x.Usuario,
+                Produto = x.Produto,
+                Flg_Inativo=true,
+                Id = x.Id
+            }).ToListAsync();
         }
 
 

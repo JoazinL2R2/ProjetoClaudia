@@ -1,0 +1,45 @@
+﻿<div class="container mt-5">
+    <h2 class="text-center">Cadastro de Usuário</h2>
+    <form method="POST" asp-action="AdicioarUsuario" asp-controller="Usuario" class="mt-4">
+
+        <!-- Nome -->
+        <div class="mb-3">
+            <label for="Nome" class="form-label">Nome:</label>
+            <input type="text" class="form-control" id="Nome" name="Nome" required>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="Email" name="Email" required>
+        </div>
+
+        <!-- Senha -->
+        <div class="mb-3">
+            <label for="Senha" class="form-label">Senha:</label>
+            <input type="password" class="form-control" id="Senha" name="Senha" required>
+        </div>
+
+        <!-- CPF -->
+        <div class="mb-3">
+            <label for="Cpf" class="form-label">CPF:</label>
+            <input type="text" class="form-control" id="Cpf" name="Cpf" required>
+        </div>
+
+        <!-- Gênero -->
+        <div class="mb-3">
+            <label class="form-label">Gênero:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Genero" id="masculino" value="true" required>
+                <label class="form-check-label" for="masculino">Masculino</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Genero" id="feminino" value="false" required>
+                <label class="form-check-label" for="feminino">Feminino</label>
+            </div>
+        </div>
+
+        <!-- Botão de envio -->
+        <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+    </form>
+</div>

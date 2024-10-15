@@ -32,14 +32,19 @@ namespace ProjetoClaudia.Services
         }
         public async Task<Usuario> CreateUser(Usuario user)
         {
-            if(user != null)
+            if (user != null)
             {
-                _db.Add(user);
+                if (user.TipoUsuarioId == null)
+                {
+                    user.TipoUsuarioId = 2;
+                }
+                _db.Usuario.Add(user);
                 await _db.SaveChangesAsync();
                 return user;
             }
             throw new Exception("Usuario Nulo");
         }
+
         public async Task<bool> DeleteUser(int id)
         {
             var query = await _db.Usuario.FirstOrDefaultAsync(x => x.Id == id);
@@ -60,6 +65,7 @@ namespace ProjetoClaudia.Services
                 Email = x.Email,
                 Genero = x.Genero,
                 Nome = x.Nome,
+                Senha = x.Senha,
             }).ToList();
             return query;
         }
@@ -152,7 +158,7 @@ namespace ProjetoClaudia.Services
         }
         public async Task<Usuario> UpdateUser(Usuario user)
         {
-            if (user.Id == null && user.Id != 0)
+            if (user.Id != null && user.Id != 0)
             {
                 var query = await _db.Usuario.FirstOrDefaultAsync(x => x.Id == user.Id);
                 if (query != null)
