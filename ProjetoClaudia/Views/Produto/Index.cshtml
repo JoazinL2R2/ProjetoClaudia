@@ -3,40 +3,54 @@
     ViewData["Title"] = "Home Page";
 }
 <main class="catalogoProdutos">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="left-container">
+            <img src="~/imgContainerjpg.jpg" style="height:450px;border-radius:5px"/>
+        </div>
+        <div class="right-container" style="padding-left:15vh;font-weight:bolder;font-size:20px">
+            <p>
+                Seja bem-vindo à WALKON, sua nova referência em calçados de qualidade! Aqui, reunimos conforto, estilo e durabilidade para oferecer a você as melhores opções de sapatos, tênis e sandálias para todas as ocasiões. Nossos produtos são cuidadosamente selecionados para atender desde o dia a dia até eventos especiais, sempre com foco no bem-estar dos seus pés.
+                buscamos proporcionar uma experiência única de compra, onde o design moderno se encontra com a praticidade. Venha conhecer nossa loja e descubra o par perfeito para você!
+            </p>
+        </div>
+    </div>
     @if (Model == null || !Model.Any())
     {
         <p>Nenhum produto disponível.</p>
     }
     else
     {
-        <p>Produtos disponíveis: @Model.Count</p>
-        <div class="cards">
-            <div class="produtos">
-                @foreach (var item in Model)
-                {
-                    <div class="produtoCard">
-                        <div class="imagemCard">
-                            <img src="~/ImagemProdutos/@item.URL_Imagem"/>
+        <div style="margin-top:15vh;text-align:center">
+            <h1>Produtos Disponíveis</h1>
+            <div class="cards" style="margin-top:7vh">
+                <div class="produtos" sty>
+                    @foreach (var item in Model)
+                    {
+                        <div class="card">
+                            <p class="heading">
+                                <img src="~/ImagemProdutos/@item.URL_Imagem" style="width:220px;border-radius:10px"/>
+                            </p>
+                            <div class="nomeProduto">
+                                <h6 class="text-title" style="font-size:20px;color:#ffff;">@item.Nome - <span class="text-title">R$@item.Valor</span></h6>
+                            </div>
+                            <div class="descProduto">
+                                <button class="cssbuttons-io-button" onclick="adicionarCarrinho(@item.Id)">
+                                    <svg height="24"
+                                         width="24"
+                                         viewBox="0 0 24 24"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path>
+                                    </svg>
+                                    <span>Carrinho</span>
+                                </button>
+                            </div>
                         </div>
-                        <div class="nomeProduto">
-                            <h6 class="text-title" style="font-size:20px;">@item.Nome - <span class="text-title">R$@item.Valor</span></h6>
-                        </div>
-                        <div class="descProduto">
-                            <button class="cssbuttons-io-button" onclick="adicionarCarrinho(@item.Id)">
-                                <svg height="24"
-                                     width="24"
-                                     viewBox="0 0 24 24"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path>
-                                </svg>
-                                <span>Carrinho</span>
-                            </button>
-                        </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
-        </div>             
+        </div>
+                   
     }   
 </main>
 @section Scripts{
